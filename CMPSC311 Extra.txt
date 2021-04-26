@@ -1,0 +1,272 @@
+Hyeon Joon Song
+CMPSC 311
+
+Exercise 1-1:
+	? #define TRUE 0 
+	? #define FALSE 1 
+	? 
+	? if ((ch = getchar()) == EOF) 
+	? 	not-eof = FALSE; 
+
+	TRUE should be 1 and FALSE should be 0.
+	Defining TRUE and FALSE is not needed. Just d0 not-eof = 0.
+
+Exercise 1-2:
+	? int smaller(char *s, char *t) {
+	? 	if (strcmp(s, t) < 1)
+	? 		return 1;
+	? 	else
+	? 		return 0;
+	? }
+
+	Rename the function to issmaller(char *s, char *t).
+
+Exercise 1-3:
+	? if ((falloc(SMRHSHSCRTCH, SJFEXT10644, MAXRODDHSH)) < 0)
+	? . . .
+
+	The code does not convey any information on what the purpose and the use of the code is.
+
+Exercise 1-4-1:
+	? if (!(c == 'y' || c == 'Y'))
+	?  	return;
+	
+	Change to: 
+		if (c != 'y' || c != 'Y)
+			return;
+
+	Same resulting expression, but with more clarity.
+
+Exercise 1-4-2:
+	? length = (length < BUFSIZE) ? length : BUFSIZE; 
+
+	Change to:
+		if (!(length < BUFSIZE))
+			length = BUFSIZE
+
+	If true, the value of length doesn't change.
+	So, add a single if statment for clarity and not to have unnecessary code.
+
+Exercise 1-4-3:
+	? flag = flag ? 0 : 1;
+	
+	Change to:
+		flag = !flag;
+	
+	Does the same thing while being more concise and clear.
+
+Exercise 1-4-4:
+	? quote = (*line == '"') ? 1 : 0;
+
+	Change to:
+		if (*line == '"')
+			quote = 1;
+		else
+			quote = 0;
+	
+	Write it into if/else statements for clarity.
+
+Exercise 1-4-5:
+	? if (val & 1) 
+	? 	bit = 1; 
+	? else 
+	? 	bit = 0; 
+
+	Change to:
+		if (val)
+			bit = 1;
+		else
+			bit 0;
+
+	If val is not 0, it will be true, so no reason to val & 1. Same boolean result.
+
+Exercise 1-5:
+	? int read(int *ip) {
+	? 	scanf ("%d”, ip);
+	? 	return *ip;
+	? }
+	? . . .
+	? insert(&graph[vert] , read(&val) , read(&ch));
+
+	Change to:
+		read_val = read(&val);
+		read_ch = read(&ch);
+		insert(&graph[vert] , read_val , read_ch);
+
+	Cleans up the code so that it is easier to understand.
+
+Exercise 1-6:
+	? n = l;
+	? printf ("%d %d\n”, n++, n++);
+	
+	Tried 3 different compilers and got:
+		2 1
+
+	Instead of incrementing n in printf, 
+	it's better to update n to the value needed before.
+
+	Change to:
+		n = 1;
+		n++;
+		printf ("%d %d\n”, n, n);
+
+Exercise 1-7-1:
+	? if (istty(stdin)) ;
+	? else if (istty(stdout)) ;
+	? 	else if (istty(stderr)) ; 
+	? 		else return(0) ;
+
+	Change to:
+		if (istty(stdin)) ;
+		else if (istty(stdout)) ;
+		else if (istty(stderr)) ;
+		else return (0) ;
+
+	Since all the if/else if/else are linked, 
+	they should be on the same indentation.
+
+Exercise 1-7-2:
+	? if (retval != SUCCESS) {
+	? 	return (retval);
+	? }
+	? /a All went well! a/
+	? return SUCCESS;
+
+	Change to:
+		return (retval);
+
+	If retval == SUCCESS, it returns SUCCESS, which is retval.
+	If retval != SUCCESS, it returns retval.
+	So, just returning retval does the same thing.
+
+Exercise 1-7-3:
+	? for (k = 0; k++ < 5; x += dx)
+	? 	scanf("%lf", &dx);
+
+	Change to:
+		for (k = 0; k < 5; k++) {
+			scanf("%lf", &dx);
+			x += dx
+		}
+
+	The index/counter of the forloop should be updated in for (;;here).
+	Since x is not part of the index/counter, it should be updated in the body of the forloop.
+
+Exercise 1-8:
+	? int count = 0;
+	? while (count < total) {
+	? 	count++;
+	? 	if (this.getName(count) == nametable.userName()) {
+	? 		return (true);
+	? 	}
+	? }
+
+	Change to:
+		for (int i = 1; i < total + 1; i++) {
+			if (this.getName(count) == nametable.userName()) {
+	 			return (true);
+	 		}
+		}
+
+	Forloop is better suited than whileloops when iterating a specific number of times.
+	The code runs from 1 to total + 1 iterations.
+	So, start from i = 1, until and including i = total + 1; Thus, i < total + 1;
+
+Exercise 1-9:
+	? #define ISDIGIT(c) ((c >= '0') && (c = '9')) ? 1 : 0
+
+	Change to:
+		#define ISDIGIT(c) ((c >= '0') && (c = '9'))
+
+	Having ? 1 : 0 is redundant.
+	It is similar to saying TRUE is TRUE and FALSE is FALSE.
+	The change does the same thing and the code before.
+
+Exercise 1-11-1:
+	? void dict::insert(string & w)
+	? // returns 1 if w in dictionary, otherwise returns 0
+
+	It should elaborate on what insert does.
+	If w is in dict, it will not insert w into dict and return 0 (FALSE, representing insert failed).
+	If w is not in dict, it will insert w into dict and return 1 (TRUE, representing insert success).
+	It also got the return values wrong, at least to my knowledge and understanding of dict/data structures.
+	
+
+	Change to:
+		// insert: return 0 if w in dict, return 1 if w not in dict and insert w into dict
+
+Exercise 1-11-2:
+	? if (n > MAX || n % 2 > 0) // test for even number
+
+	It also tests if n > MAX. Should update the comment with the additional information.
+	Also, I believe the comment is unnecessary.
+
+	Change to:
+		if (n > MAX || n % 2 > 0) // Test if n > MAX or n is even
+
+Exercise 1-11-3:
+	? // Write a message
+	? // Add to line counter for each line written
+	? void write_message()
+	? {
+	?	 // increment line counter
+	? 	line_number = line_number + 1;
+	?	 fprintf(fout, "%d  %s\n%d  %s\n%d  %s\n",
+	? 		line_number, HEADER,
+	?		 line_number + 1, BODY,
+	?		 line_number + 2, TRAILER);
+	?	 // increment line counter
+	?	 line_number = line_number + 2;
+	? }
+
+	The first comment is not the same syntax as the function name.
+	The second comment could be grouped with first comment for clarity and to be concise.
+	The third comment is unnecessary. No need to comment a simple line of code.
+	The fourth comment is also unnecessary. No need to comment a simple line of code.
+
+	Change to:
+		// write_message: Add to line counter for each line written
+		void write_message()
+		{
+		 	line_number = line_number + 1;
+			fprintf(fout, "%d  %s\n%d  %s\n%d  %s\n",
+		 		line_number, HEADER,
+				line_number + 1, BODY,
+				line_number + 2, TRAILER);
+			line_number = line_number + 2;
+		}
+
+	
+
+
+	
+
+		
+	
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
